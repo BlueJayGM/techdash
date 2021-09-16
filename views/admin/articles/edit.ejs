@@ -1,0 +1,51 @@
+<%- include('../../partials/utils/start.ejs')%>
+<%- include('../../partials/header.ejs')%>
+
+<body>
+	<%- include('../../partials/navbar/admin/navbar.ejs')%>
+
+	<div class="container">
+		<div class="card mt-4">
+			<div class="card-header">
+				<h2 class="card-title">Editar Artigo</h2>
+			</div>
+			<form class="m-4" action="/articles/update" method="POST">
+				<input type="hidden" name="id" value="<%=article.id%>">
+				<input type="text" name="title" placeholder="ex: My Title" class="form-control mt-2 mb-2" value="<%=article.title%>" required>
+				<textarea name="body" placeholder="ex: Let's Go on Articles..." class="form-control mt-2" id="article-body" rows="10" required>
+					<%=article.body%>
+				</textarea>
+
+				<select class="form-control mt-2" name="category" required>
+					<% categories.forEach((category) => {%>
+						<% if ( category.id === article.categoryId ) {%>
+							<option value="<%=category.id%>" selected>
+								<%=category.title%>
+							</option>
+						<% } else { %>
+							<option value="<%=category.id%>">
+								<%=category.title%>
+							</option>
+						<% }%>
+					<% })%>
+				</select>
+
+				<button class="btn btn-primary mt-4">Confirmar</button>
+			</form>
+		</div>
+	</div>
+
+	<script src="/tinymce/tinymce.min.js"></script>
+	<script>
+		tinymce.init({
+			language: 'pt_BR',
+			selector: '#article-body',
+			toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | forecolor backcolor |',
+			puglins: [
+				'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons textcolor'
+			],
+		});
+	</script>
+	<%- include('../../partials/utils/scripts.ejs')%>
+</body>
+<%- include('../../partials/utils/end.ejs')%>

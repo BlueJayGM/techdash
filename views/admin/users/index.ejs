@@ -1,0 +1,72 @@
+<%- include('../../partials/utils/start.ejs')%>
+<%- include('../../partials/header.ejs')%>
+
+<body>
+	<%- include('../../partials/navbar/admin/navbar.ejs')%>
+
+	<div class="container position-relative">
+		<h2 class="mt-4">Usuários</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>
+						Ações
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% users.forEach( (user) => { %>
+					<tr>
+						<td><%=user.id%></td>
+						<td><%=user.name + ' ' + user.lastName%></td>
+						<td><%=user.email%></td>
+						<td>
+							<form style="display: inline !important;" action="/users/delete" method="POST" onsubmit="deleteUser(event, this)">
+
+								<input type="hidden" name="id" value="<%=user.id%>">
+								<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+									<i class="ri-delete-bin-line"></i>
+								</button>
+							</form>
+						</td>
+					</tr>
+				<% }) %>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Tem certeza?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="btn-confirm">Sim</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Não</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		function deleteUser(event, form) {
+			event.preventDefault();
+
+			const confirm = document.getElementById("btn-confirm");
+
+			confirm.addEventListener('click', () => {
+				form.submit();
+			});
+		}
+	</script>
+
+	<%- include('../../partials/utils/scripts.ejs')%>
+</body>
+<%- include('../../partials/utils/end.ejs')%>

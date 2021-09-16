@@ -1,0 +1,29 @@
+<%- include('../../partials/utils/start.ejs')%>
+<%- include('../../partials/header.ejs')%>
+
+<body>
+	<%- include('../../partials/navbar/admin/navbar.ejs')%>
+
+	<div class="container">
+
+		<div class="card mt-5">
+			<div class="card-header">
+				Cadastro de Usuário
+			</div>
+			<div class="card-body">
+				<form action="/users/register" method="POST">
+					<input class="form-control mb-3" type="text" name="name" placeholder="First Name" required>
+					<input class="form-control mb-3" type="text" name="lastname" placeholder="Last Name" required>
+					<input class="form-control mb-3" type="email" name="email" placeholder="email@exemple.com" required>
+					<input class="form-control mb-3" type="password" name="password" placeholder="******" required>
+
+					<button type="submit" class="btn btn-primary">Cadastrar</button>
+				</form>
+			</div>
+		</div>
+
+	</div>
+
+	<%- include('../../partials/utils/scripts.ejs')%>
+</body>
+<%- include('../../partials/utils/end.ejs')%>

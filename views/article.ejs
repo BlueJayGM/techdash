@@ -1,0 +1,20 @@
+<%- include('partials/utils/start.ejs')%>
+<%- include('partials/header.ejs')%>
+
+<body>
+	<%- include('partials/navbar/navbar.ejs')%>
+
+	<div class="container ">
+		<div class="card m-4">
+			<div class="card-header">
+				<h2> <%=article.title%> </h2>
+			</div>
+			<div class="card-body" id="body">
+				<%-article.body%>
+			</div>
+		</div>
+	</div>
+
+	<%- include('partials/utils/scripts.ejs')%>
+</body>
+<%- include('partials/utils/end.ejs')%>

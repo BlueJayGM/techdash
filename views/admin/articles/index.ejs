@@ -1,0 +1,82 @@
+<%- include('../../partials/utils/start.ejs')%>
+<%- include('../../partials/header.ejs')%>
+
+<body>
+	<%- include('../../partials/navbar/admin/navbar.ejs')%>
+
+	<div class="container position-relative">
+		<h2 class="mt-4">Artigos</h2>
+
+		<div class="d-flex flex-row-reverse">
+			<a class="btn btn-primary" href="/admin/articles/new">Novo</a>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Título</th>
+					<th>Slug</th>
+					<th>Categoria</th>
+					<th>
+						Ações
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% articles.forEach( (article) => { %>
+					<tr>
+						<td><%=article.id%></td>
+						<td><%=article.title%></td>
+						<td><%=article.slug%></td>
+						<td><%=article['category.title']%></td>
+						<td>
+							<a href="/admin/articles/edit/<%=article.id%>" class="btn btn-secondary m-2">
+								<i class="ri-edit-fill"></i>
+							</a>
+
+							<form style="display: inline !important;" action="/articles/delete" method="POST" onsubmit="deleteArticle(event, this)">
+
+								<input type="hidden" name="id" value="<%=article.id%>">
+								<button class="btn btn-danger m-2" data-bs-toggle="modal" data-bs-target="#deleteArticleModal">
+									<i class="ri-delete-bin-line"></i>
+								</button>
+							</form>
+						</td>
+					</tr>
+				<% }) %>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="modal fade" id="deleteArticleModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Tem certeza?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="btn-confirm">Sim</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Não</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		function deleteArticle(event, form) {
+			event.preventDefault();
+
+			const confirm = document.getElementById("btn-confirm");
+
+			confirm.addEventListener('click', () => {
+				form.submit();
+			});
+		}
+	</script>
+
+	<%- include('../../partials/utils/scripts.ejs')%>
+</body>
+<%- include('../../partials/utils/end.ejs')%>

@@ -1,0 +1,42 @@
+<%- include('partials/utils/start.ejs')%>
+<%- include('partials/header.ejs')%>
+
+<body>
+	<%- include('partials/navbar/navbar.ejs')%>
+
+	<div class="container ">
+
+		<% if (articles.length > 0 ) { %>
+			<% articles.forEach( article => {%>
+				<div class="card m-4">
+					<div class="card-header">
+						<h2> <%=article.title%> </h2>
+					</div>
+					<div class="card-body">
+						<a href="/<%=article.slug%>" class="btn btn-primary">Saiba mais.</a>
+					</div>
+				</div>
+			<% })%>
+		<% } else {%>
+			<div class="card m-4 ">
+				<div class="card-header bg-primary">
+					<h2 class="text-light">Aviso!</h2>
+				</div>
+				<div class="card-body">
+					Nenhum artigo dessa categoria foi encontrado!
+				</div>
+			</div>
+		<% } %>
+
+		<div class="row m-2 ">
+			<div class="col col-12 d-flex flex-row-reverse">
+				<a class=" btn btn-dark mb-4"  href="/articles/page/2">
+					<i class="ri-arrow-right-s-line text-primary"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<%- include('partials/utils/scripts.ejs')%>
+</body>
+<%- include('partials/utils/end.ejs')%>
